@@ -31,6 +31,19 @@ class ArticleController
             throw new Exception("L'article demandé n'existe pas.");
         }
 
+        if (!isset($_SESSION['viewed_articles'])) {
+            $_SESSION['viewed_articles'] = [];
+        }
+
+        if (!in_array($article->getId(), $_SESSION['viewed_articles'])) {
+            // Incrémenter le nombre de vues de l'article
+            $article->setViews($article->getViews() + 1);
+            $articleManager->updateArticleViews($article);
+
+            // Ajouter l'ID de l'article aux articles déjà vus
+            $_SESSION['viewed_articles'][] = $article->getId();
+        }
+
         $commentManager = new CommentManager();
         $comments = $commentManager->getAllCommentsByArticleId($id);
 

@@ -26,6 +26,31 @@ class AdminController {
     }
 
     /**
+     * Affiche la page de monitoring.
+     * @return void
+     */
+    public function showMonitoring() : void
+    {
+        // On vérifie que l'utilisateur est connecté.
+        $this->checkIfUserIsConnected();
+
+        // On récupère les articles.
+        $articleManager = new ArticleManager();
+        $articles = $articleManager->getAllArticles();
+
+        // On récupère le nombre de commentaires par article.
+        $nbComments = [];
+        $commentManager = new CommentManager();
+        foreach ($articles as $article) {
+            $nbComments[$article->getId()] = count($commentManager->getAllCommentsByArticleId($article->getId()));
+        }
+
+        // On affiche la page de monitoring.
+        $view = new View("Monitoring");
+        $view->render("adminMonitoring", ['articles' => $articles, 'nbComments' => $nbComments]);
+    }
+
+    /**
      * Vérifie que l'utilisateur est connecté.
      * @return void
      */

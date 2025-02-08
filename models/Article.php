@@ -10,10 +10,11 @@
     private string $title = "";
     private string $content = "";
     private ?DateTime $dateCreation = null;
-    private ?DateTime $dateUpdate = null;  
+    private ?DateTime $dateUpdate = null;
+    private int $views;
 
     /**
-     * Setter pour l'id de l'utilisateur. 
+     * Setter pour l'id de l'utilisateur.
      * @param int $idUser
      */
     public function setIdUser(int $idUser) : void 
@@ -127,4 +128,23 @@
     {
         return $this->dateUpdate;
     }
+
+     /**
+      * Getter pour le nombre de vues.
+      * @return int : le nombre de vues.
+      */
+     public function getViews(): int
+     {
+         return $this->views;
+     }
+
+     /**
+      * Setter pour le nombre de vues.
+      * @param int $views : le nombre de vues.
+      * @return void
+      */
+     public function setViews(int $views): void
+     {
+         $this->views = $views;
+     }
  }
