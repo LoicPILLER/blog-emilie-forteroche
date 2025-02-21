@@ -365,6 +365,18 @@ footer {
     text-align: left;
 }
 
+th a {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+th img {
+    width: 16px; /* Ajuste la taille de l'icône */
+    height: auto;
+}
+
+
 .monitoring-table td {
     padding: 10px;
 }
