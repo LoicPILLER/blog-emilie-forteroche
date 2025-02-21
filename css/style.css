@@ -350,3 +350,25 @@ footer {
     color: white;
     background-color: var(--headerColor);
 }
+
+.monitoring-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: rgba(239, 225, 186, 0.3);
+}
+
+.monitoring-table th {
+    background-color: var(--commentPaleColor);
+    color: white;
+    font-weight: bold;
+    padding: 10px;
+    text-align: left;
+}
+
+.monitoring-table td {
+    padding: 10px;
+}
+
+.monitoring-table tbody tr:nth-child(even) {
+    background-color: var(--headerPaleColor);
+}

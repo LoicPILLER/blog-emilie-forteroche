@@ -1,12 +1,23 @@
 <h2>Monitoring</h2>
 
-<div class="adminArticle">
+
+<table class="monitoring-table">
+    <thead>
+    <tr>
+        <th>Titre</th>
+        <th>Vues</th>
+        <th>Commentaires</th>
+        <th>Date de création</th>
+    </tr>
+    </thead>
+    <tbody>
     <?php foreach ($articles as $article) : ?>
-        <div class="articleLine">
-            <div class="title"><?= $article->getTitle() ?></div>
-            <div><?= $article->getViews() ?></div>
-            <div><?= $nbComments[$article->getId()] ?></div>
-            <div><?= $article->getDateCreation()->format('d/m/Y') ?></div>
-        </div>
-    <?php endforeach; ?>
-</div>
+    <tr>
+        <td><?= htmlspecialchars($article->getTitle()) ?></td>
+        <td><?= $article->getViews() ?></td>
+        <td><?= $nbComments[$article->getId()] ?></td>
+        <td><?= $article->getDateCreation()->format('d/m/Y') ?></td>
+    </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
