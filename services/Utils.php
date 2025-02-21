@@ -22,6 +22,21 @@ class Utils {
     }
 
     /**
+     * Retourne l'URL d'une action.
+     * @param string $action : l'action que l'on veut faire (correspond aux actions dans le routeur).
+     * @param array $params : Facultatif, les paramètres de l'action sous la forme ['param1' => 'valeur1', 'param2' => 'valeur2']
+     * @return string : l'URL de l'action.
+     */
+    public static function actionUrl(string $action, array $params = []) : string
+    {
+        $url = "index.php?action=$action";
+        foreach ($params as $paramName => $paramValue) {
+            $url .= "&$paramName=$paramValue";
+        }
+        return $url;
+    }
+
+    /**
      * Redirige vers une URL.
      * @param string $action : l'action que l'on veut faire (correspond aux actions dans le routeur).
      * @param array $params : Facultatif, les paramètres de l'action sous la forme ['param1' => 'valeur1', 'param2' => 'valeur2']
@@ -29,10 +44,7 @@ class Utils {
      */
     public static function redirect(string $action, array $params = []) : void
     {
-        $url = "index.php?action=$action";
-        foreach ($params as $paramName => $paramValue) {
-            $url .= "&$paramName=$paramValue";
-        }
+        $url = self::actionUrl($action, $params);
         header("Location: $url");
         exit();
     }
@@ -86,5 +98,4 @@ class Utils {
     {
         return $_REQUEST[$variableName] ?? $defaultValue;
     }
-
 }
