@@ -45,9 +45,38 @@ class AdminController {
             $nbComments[$article->getId()] = count($commentManager->getAllCommentsByArticleId($article->getId()));
         }
 
+        //On récupère les paramètres de tri dans l'URL
+        $sort = $_GET['sort'] ?? 'date';  // Par défaut tri par date
+        $order = $_GET['order'] ?? 'desc'; // Par défaut en descendant
+
+        // Tri des articles en fonction du paramètre
+        usort($articles, function($a, $b) use ($sort, $order, $nbComments) {
+            switch ($sort) {
+                case 'title':
+                    $valueA = $a->getTitle();
+                    $valueB = $b->getTitle();
+                    break;
+                case 'views':
+                    $valueA = $a->getViews();
+                    $valueB = $b->getViews();
+                    break;
+                case 'comments':
+                    $valueA = $nbComments[$a->getId()];
+                    $valueB = $nbComments[$b->getId()];
+                    break;
+                case 'date':
+                default:
+                    $valueA = $a->getDateCreation()->getTimestamp();
+                    $valueB = $b->getDateCreation()->getTimestamp();
+                    break;
+            }
+
+            return ($order === 'asc') ? $valueA <=> $valueB : $valueB <=> $valueA;
+        });
+
         // On affiche la page de monitoring.
         $view = new View("Monitoring");
-        $view->render("adminMonitoring", ['articles' => $articles, 'nbComments' => $nbComments]);
+        $view->render("adminMonitoring", ['articles' => $articles, 'nbComments' => $nbComments, 'sort' => $sort, 'order' => $order]);
     }
 
     /**

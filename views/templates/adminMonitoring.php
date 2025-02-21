@@ -4,10 +4,10 @@
 <table class="monitoring-table">
     <thead>
     <tr>
-        <th>Titre</th>
-        <th>Vues</th>
-        <th>Commentaires</th>
-        <th>Date de création</th>
+        <th><a href="<?= Utils::actionUrl('monitoring', ['sort' => 'title', 'order' => ($sort === 'title' && $order === 'asc') ? 'desc' : 'asc']) ?>">Titre</a></th>
+        <th><a href="<?= Utils::actionUrl('monitoring', ['sort' => 'views', 'order' => ($sort === 'views' && $order === 'desc') ? 'asc' : 'desc']) ?>">Vues</a></th>
+        <th><a href="<?= Utils::actionUrl('monitoring', ['sort' => 'comments', 'order' => ($sort === 'comments' && $order === 'desc') ? 'asc' : 'desc']) ?>">Commentaires</a></th>
+        <th><a href="<?= Utils::actionUrl('monitoring', ['sort' => 'date', 'order' => ($sort === 'date' && $order === 'asc') ? 'desc' : 'asc']) ?>">Date de création</a></th>
     </tr>
     </thead>
     <tbody>
