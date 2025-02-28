@@ -31,11 +31,13 @@ class ArticleController
             throw new Exception("L'article demandé n'existe pas.");
         }
 
+        $isAdmin = isset($_SESSION['user']);
+
         if (!isset($_SESSION['viewed_articles'])) {
             $_SESSION['viewed_articles'] = [];
         }
 
-        if (!in_array($article->getId(), $_SESSION['viewed_articles'])) {
+        if (!in_array($article->getId(), $_SESSION['viewed_articles']) && !$isAdmin) {
             // Incrémenter le nombre de vues de l'article
             $article->setViews($article->getViews() + 1);
             $articleManager->updateArticleViews($article);
@@ -48,7 +50,7 @@ class ArticleController
         $comments = $commentManager->getAllCommentsByArticleId($id);
 
         $view = new View($article->getTitle());
-        $view->render("detailArticle", ['article' => $article, 'comments' => $comments]);
+        $view->render("detailArticle", ['article' => $article, 'comments' => $comments, 'isAdmin' => $isAdmin]);
     }
 
     /**
