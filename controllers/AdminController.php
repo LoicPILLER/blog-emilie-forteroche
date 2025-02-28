@@ -230,4 +230,42 @@ class AdminController {
         // On redirige vers la page d'administration.
         Utils::redirect("admin");
     }
+
+    /**
+     * Suppression d'un commentaire.
+     * @return void
+     * @throws Exception
+     */
+    public function deleteComment() : void
+    {
+        $this->checkIfUserIsConnected();
+
+        // Récupération et vérification de l'id du commentaire.
+        $id = Utils::request("id", -1);
+
+        // On vérifie que l'id est valide.
+        if ($id === -1) {
+            throw new Exception("L'id du commentaire est invalide.");
+        }
+
+        // On récupère le commentaire.
+        $commentManager = new CommentManager();
+        $comment = $commentManager->getCommentById($id);
+
+        // On vérifie que le commentaire existe.
+        if (!$comment) {
+            throw new Exception("Le commentaire demandé n'existe pas.");
+        }
+
+        // On supprime le commentaire.
+        $result = $commentManager->deleteComment($comment);
+
+        // On vérifie que la suppression a bien fonctionné.
+        if (!$result) {
+            throw new Exception("Une erreur est survenue lors de la suppression du commentaire.");
+        }
+
+        // On redirige vers la page de l'article.
+        Utils::redirect("showArticle", ['id' => $comment->getIdArticle()], 'comments-section');
+    }
 }

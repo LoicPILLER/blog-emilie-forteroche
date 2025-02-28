@@ -273,6 +273,12 @@ a.info {
     color: var(--quoteColor);
 }
 
+.detailComment {
+    width: 100%;
+    height: 110px;
+    overflow-y: auto;
+}
+
 /* On redéfinit certaines parties du "info" pour l'affichage dans les commentaires */
 .detailComment .info {
     margin: 5px 0 5px 0;
@@ -383,4 +389,19 @@ th img {
 
 .monitoring-table tbody tr:nth-child(even) {
     background-color: var(--headerPaleColor);
+}
+
+.delete-comment-btn {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: var(--quoteColor);
+    transition: background 0.4s ease-in-out;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    padding: 5px;
+}
+
+.delete-comment-btn:hover {
+    background-color: var(--titleColor);
 }

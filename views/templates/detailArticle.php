@@ -1,8 +1,8 @@
 <?php
-    /**
-     * Ce template affiche un article et ses commentaires.
-     * Il affiche également un formulaire pour ajouter un commentaire.
-     */
+/**
+ * Ce template affiche un article et ses commentaires.
+ * Il affiche également un formulaire pour ajouter un commentaire.
+ */
 ?>
 
 <article class="mainArticle">
@@ -18,24 +18,29 @@
     </div>
 </article>
 
-<div class="comments">
+<div class="comments" id="comments-section">
     <h2 class="commentsTitle">Vos Commentaires</h2>
-    <?php 
-        if (empty($comments)) {
-            echo '<p class="info">Aucun commentaire pour cet article.</p>';
-        } else {
-            echo '<ul>';
-            foreach ($comments as $comment) {
-                echo '<li>';
-                echo '  <div class="smiley">☻</div>';
-                echo '  <div class="detailComment">';
-                echo '      <h3 class="info">Le ' . Utils::convertDateToFrenchFormat($comment->getDateCreation()) . ", " . Utils::format($comment->getPseudo()) . ' a écrit :</h3>';
-                echo '      <p class="content">' . Utils::format($comment->getContent()) . '</p>';
-                echo '  </div>';
-                echo '</li>';
-            }               
-            echo '</ul>';
-        } 
+    <?php
+    if (empty($comments)) {
+        echo '<p class="info">Aucun commentaire pour cet article.</p>';
+    } else {
+        echo '<ul>';
+        foreach ($comments as $comment) {
+            echo '<li>';
+            if ($isAdmin) {
+            echo '    <a class="delete-comment-btn" href="index.php?action=deleteComment&id=' . $comment->getId() . '">';
+            echo '        <img src="assets/icons/delete.svg" alt="Supprimer le commentaire" class="delete">';
+            echo '    </a>';
+            }
+            echo '    <div class="smiley">☻</div>';
+            echo '    <div class="detailComment">';
+            echo '        <h3 class="info">Le ' . Utils::convertDateToFrenchFormat($comment->getDateCreation()) . ", " . Utils::format($comment->getPseudo()) . ' a écrit :</h3>';
+            echo '        <p class="content">' . Utils::format($comment->getContent()) . '</p>';
+            echo '    </div>';
+            echo '</li>';
+        }
+        echo '</ul>';
+    }
     ?>
 
     <form action="index.php" method="post" class="foldedCorner">
