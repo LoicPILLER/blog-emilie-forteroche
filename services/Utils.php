@@ -41,11 +41,17 @@ class Utils
      * Redirige vers une URL.
      * @param string $action : l'action que l'on veut faire (correspond aux actions dans le routeur).
      * @param array $params : Facultatif, les paramètres de l'action sous la forme ['param1' => 'valeur1', 'param2' => 'valeur2']
+     * @param string|null $anchor : Facultatif, le nom de l'ancre HTML.
      * @return void
      */
-    public static function redirect(string $action, array $params = []): void
+    public static function redirect(string $action, array $params = [], ?string $anchor = null): void
     {
         $url = self::actionUrl($action, $params);
+
+        if ($anchor) {
+            $url .= "#$anchor";
+        }
+
         header("Location: $url");
         exit();
     }
